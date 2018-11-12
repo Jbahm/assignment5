@@ -13,12 +13,15 @@ class faculty: public person{
     string name;
     string level;
     string department;
+    int adviseeArray;
+    int numAdvisee;
     DoublyLinkedList<int> advisees;
 
     string getName();
     string getLevel();
     string getDepartment();
+    void printFaculty();
 
-
+    unsigned int maxSize;
 
 };
