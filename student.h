@@ -20,6 +20,4 @@ class student: public person{
     int getAdvisor();
     void changeAdvisor(int newAdvisor);
 
-
-
 };

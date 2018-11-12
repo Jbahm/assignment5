@@ -10,7 +10,7 @@ class TreeNode
 {
   public:
     TreeNode();
-    TreeNode(int k);
+    TreeNode(T d);
     virtual ~TreeNode();//
 
     int key;
@@ -29,8 +29,8 @@ TreeNode<T>::TreeNode(){
 }
 
 template<class T>
-TreeNode<T>::TreeNode(int k){
-  key = k;
+TreeNode<T>::TreeNode(T d){
+  key = d;
   left = NULL;
   right = NULL;
 }
