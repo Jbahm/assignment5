@@ -18,9 +18,9 @@ public:
   bool contains(T data); // tested and working
   bool deleteNode(T data); // Works but it refuses to delete the first person entered(Maybe insert a dummy at the top of each tree to fix w/ ID 0)
   TreeNode<T>* getSuccessor(TreeNode<T> *d);
-  bool isEmpty();
+  bool isEmpty(); //tested and works
 
-  void printTree();
+  void printTree(); //tested and works
   void recPrint(TreeNode<T> *node); //in order traversal
 
 private:
