@@ -34,6 +34,10 @@ double student::getGPA(){
   return gpa;
 }
 
+int student::getAdvisor(){
+  return advisor;
+}
+
 void student::changeAdvisor(int newAdvisor){
   advisor = newAdvisor;
 }

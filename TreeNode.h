@@ -11,9 +11,9 @@ class TreeNode
   public:
     TreeNode();
     TreeNode(T d);
-    virtual ~TreeNode();//
+    ~TreeNode();
 
-    int key;
+    T key;
     TreeNode *left;
     TreeNode *right;
 
@@ -33,6 +33,11 @@ TreeNode<T>::TreeNode(T d){
   key = d;
   left = NULL;
   right = NULL;
+}
+
+template<class T>
+TreeNode<T>::~TreeNode(){
+  //
 }
 
 #endif

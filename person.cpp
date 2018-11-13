@@ -17,3 +17,7 @@ person::person(int idNum){
 int person::getId(){
   return id;
 }
+
+void person::printData(){
+  cout << id << endl;
+}

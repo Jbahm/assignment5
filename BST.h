@@ -8,23 +8,23 @@
 using namespace std;
 
 template <class T>
-class BST(){
+class BST{
 
 public:
   BST();
   virtual ~BST();
 
-  void insert(int value);
-  bool contains(int value);
-  bool deleteNode(int value);
-  bool deleteRec(TreeNode *node);
+  void insert(T data); //tested and working
+  bool contains(T data); // tested and working
+  bool deleteNode(T data); // Works but it refuses to delete the first person entered(Maybe insert a dummy at the top of each tree to fix w/ ID 0)
+  TreeNode<T>* getSuccessor(TreeNode<T> *d);
   bool isEmpty();
 
   void printTree();
-  void recPrint(TreeNode *node); //in order traversal
+  void recPrint(TreeNode<T> *node); //in order traversal
 
 private:
-  TreeNode *root;
+  TreeNode<T> *root;
 
 };
 
@@ -61,7 +61,7 @@ void BST<T>::recPrint(TreeNode<T> *node)
   }
 
   recPrint(node->left);
-  cout << node->data << endl;
+  node->key.printData();
   recPrint(node->right);
 }
 
@@ -69,7 +69,7 @@ template <class T>
 void BST<T>::insert(T data)
 {
   //check for duplicates
-  TreeNode<T> *node = new TreeNode(data);
+  TreeNode<T> *node = new TreeNode<T>(data);
 
   if(isEmpty()){
     root = node;
@@ -109,44 +109,47 @@ void BST<T>::insert(T data)
 
 
 
-
 //search method
-bool BST::contains(int value)
+template <class T>
+bool BST<T>::contains(T data)
 {
   if(isEmpty()){
     return false;
   }else{//not an empty tree, continue to search
-    TreeNode *current = root;
-    while(current->key != value){
+    TreeNode<T> *current = root;
+    while(current != NULL){
       if(current == NULL){
         return false;
       }
-      if(value < current->key){
+      if(data.getId() < current->key.getId()){
         current = current->left;
+      }else if(data.getId() == current->key.getId()){
+        return true;
       }else{
           current = current->right;
         }
       }
-      return true;
     }
   }
 
-bool BST::deleteRec(int k)
+
+template <class T>
+bool BST<T>::deleteNode(T data)
 {
   //use contains method
 
-  if(!contains(k)){
+  if(!contains(data)){
     return false;
   }
   //lets proceed to find the TreeNode
-  TreeNode *current = root;
-  TreeNode *parent = root;
+  TreeNode<T> *current = root;
+  TreeNode<T> *parent = root;
   bool isLeft = true;
 
-  while(current->key != k){
+  while(current->key.getId() != data.getId()){
     parent = current;
 
-    if(k < current->key){//go left
+    if(data.getId() < current->key.getId()){//go left
       isLeft = true;
       current = current->left;
     }else{
@@ -188,7 +191,7 @@ bool BST::deleteRec(int k)
       }
 
     }else{//it has two children, at this point we begin to cry and take a long nap
-      TreeNode *successor = getSuccessor(current);
+      TreeNode<T> *successor = getSuccessor(current);
 
       if(current == root){
         root = successor;
@@ -203,15 +206,16 @@ bool BST::deleteRec(int k)
   return true;
 }
 
-TreeNode* BST::getSuccessor(TreeNode *d)
+template <class T>
+TreeNode<T>* BST<T>::getSuccessor(TreeNode<T> *d)
 {
-  TreeNode *sp = d;
-  TreeNode *successor = d;
-  TreeNode *current = d->right;
+  TreeNode<T> *sp = d;
+  TreeNode<T> *successor = d;
+  TreeNode<T> *current = d->right;
 
 
   while(current != NULL){
-    sp = succesor;
+    sp = successor;
     successor = current;
     current = current->left;
   }

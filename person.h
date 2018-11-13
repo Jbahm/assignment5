@@ -12,5 +12,6 @@ class person
     person(int idNum);
     int id;
     int getId();
+    void printData();
 
 };
