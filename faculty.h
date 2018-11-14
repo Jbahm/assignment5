@@ -19,4 +19,5 @@ class faculty{
     string getName();
     string getLevel();
     string getDepartment();
+    DoublyLinkedList<int> getAdvisees();
 };

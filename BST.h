@@ -19,10 +19,12 @@ public:
   TreeNode<T>* getSuccessor(TreeNode<T> *d);
   bool isEmpty(); //tested and works
 
-  void outputTree(string filename);
+  void outputTreeStudent(string filename);
+  void outputTreeFaculty(string filename);
   void printTree(); //tested and works
   void recPrint(TreeNode<T> *node); //in order traversal
-  void recOutput(TreeNode<T> *node);
+  void studentOutput(TreeNode<T> *node);
+  void facultyOutput(TreeNode<T> *node);
 
 private:
   TreeNode<T> *root;
@@ -49,12 +51,22 @@ void BST<T>::printTree()
 }
 
 template <class T>
-void BST<T>::outputTree(string filename)
+void BST<T>::outputTreeStudent(string filename)
 {
   std::ofstream ofs;
   ofs.open(filename, std::ofstream::out | std::ofstream::trunc);
   ofs.close();
-  recOutput(root);
+  studentOutput(root);
+}
+
+
+template <class T>
+void BST<T>::outputTreeFaculty(string filename)
+{
+  std::ofstream ofs;
+  ofs.open(filename, std::ofstream::out | std::ofstream::trunc);
+  ofs.close();
+  facultyOutput(root);
 }
 
 
@@ -77,13 +89,12 @@ void BST<T>::recPrint(TreeNode<T> *node)
 }
 
 template <class T>
-void BST<T>::recOutput(TreeNode<T> *node)
+void BST<T>::studentOutput(TreeNode<T> *node)
 {
   if(node == NULL){
     return;
   }
-
-  recOutput(node->left);
+  studentOutput(node->left);
   ofstream outfile;
   outfile.open("studentTable.txt", std::ios_base::app);
   outfile << node->key.getName() << "\r\n";
@@ -91,10 +102,35 @@ void BST<T>::recOutput(TreeNode<T> *node)
   outfile << node->key.getLevel() << "\r\n";
   outfile << node->key.getGPA() << "\r\n";
   outfile << node->key.getAdvisor() << "\r\n";
-  outfile << "+" << "\r\n";
+  outfile << "+";
   outfile.close();
-  recOutput(node->right);
+  studentOutput(node->right);
 }
+
+template <class T>
+void BST<T>::facultyOutput(TreeNode<T> *node)
+{
+    if(node == NULL){
+    return;
+    }
+    facultyOutput(node->left);
+    ofstream outfile;
+    outfile.open("facultyTable.txt", std::ios_base::app);
+    outfile << node->key.getName() << "\r\n";
+    outfile << node->key.getId() << "\r\n";
+    outfile << node->key.getLevel() << "\r\n";
+    outfile << node->key.getDepartment() << "\r\n";
+    outfile.close();
+    DoublyLinkedList<int> a = node->key.getAdvisees();
+    a.outputList("facultyTable.txt");
+    ofstream outfile2;
+    outfile2.open("facultyTable.txt", std::ios_base::app);
+    outfile2 << "+" << "\r\n";
+    outfile.close();
+    facultyOutput(node->right);
+}
+
+
 
 
 

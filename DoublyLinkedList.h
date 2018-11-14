@@ -5,6 +5,7 @@
 
 
 #include <iostream>
+#include <fstream>
 #include "ListNode.h"
 
 using namespace std;
@@ -26,6 +27,7 @@ class DoublyLinkedList {
 
     void printList();
     void deletePos(int pos);
+    void outputList(string filename);
 
     bool isEmpty();
     unsigned int getSize();
@@ -96,6 +98,21 @@ void DoublyLinkedList<T>::printList() {
     curr = curr->next;
   }
 }
+
+template <class T>
+void DoublyLinkedList<T>::outputList(string filename) {
+  ListNode<T> *curr = front;
+  ofstream outfile;
+  outfile.open("facultyTable.txt", std::ios_base::app);
+  while(curr != NULL){
+    outfile << curr->data << "\r\n";
+    curr = curr->next;
+  }
+  outfile.close();
+}
+
+
+
 
 template <class T>
 void DoublyLinkedList<T>::deletePos(int pos) {

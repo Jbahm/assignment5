@@ -4,15 +4,3 @@ Freshman
 5.6
 12345
 +
-Steve
-4
-Sophomore
-4.5
-13444
-+
-Joe
-7
-Senior
-3.4
-12444
-+

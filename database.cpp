@@ -32,7 +32,9 @@ database::database(){
       }else if(counter == 4){
         tempGPA = stod(currentLine);
       }else if(counter == 5){
+        if(currentLine != "+"){
         tempAdvisor = stoi(currentLine.c_str());
+        }
       }else{
         //do nothing
       }
@@ -58,15 +60,20 @@ database::database(){
       counter ++;
       facultyMems >> currentLine;
       if(counter == 1){
+        cout << currentLine << endl;
         tempN = currentLine;
       }else if(counter == 2){
+        cout << currentLine << endl;
         tempI = stoi(currentLine.c_str());
       }else if(counter == 3){
+        cout << currentLine << endl;
         tempL = currentLine;
       }else if(counter == 4){
+        cout << currentLine << endl;
         tempD = currentLine;
       }else{
         if(currentLine != "+"){
+        cout << currentLine << endl;
         tempAdvisees.insertBack(stoi(currentLine.c_str()));
         }
       }
@@ -77,11 +84,17 @@ database::database(){
 }
 
 void database::saveDB(){
-  masterStudent.outputTree("studentTable.txt");
+  masterStudent.outputTreeStudent("studentTable.txt");
+  masterFaculty.outputTreeFaculty("facultyTable.txt");
 }
 
 void database::debugDB(){
-  masterFaculty.printTree();
+  DoublyLinkedList<int> advisees;
+  advisees.insertBack(1);
+  advisees.insertBack(2);
+  faculty f(45, "Jose", "Lecturer", "GCI", advisees);
+  masterFaculty.insert(f);
+  saveDB();
 }
 
 

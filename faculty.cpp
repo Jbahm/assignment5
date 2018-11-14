@@ -38,6 +38,10 @@ int faculty::getId(){
   return id;
 }
 
+DoublyLinkedList<int> faculty::getAdvisees(){
+  return advisees;
+}
+
 
 
 
