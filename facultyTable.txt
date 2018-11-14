@@ -1,0 +1,17 @@
+Rene
+234
+Lecturer
+ComputerScience
+3
+4
+5
+6
++
+Moshier
+4444
+Lecturer
+Math
+3
+555
+2
++

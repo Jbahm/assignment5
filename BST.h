@@ -1,9 +1,8 @@
 #ifndef BST_H
 #define BST_H
 
-
-
 #include <iostream>
+#include <fstream>
 #include "TreeNode.h"
 using namespace std;
 
@@ -20,8 +19,10 @@ public:
   TreeNode<T>* getSuccessor(TreeNode<T> *d);
   bool isEmpty(); //tested and works
 
+  void outputTree(string filename);
   void printTree(); //tested and works
   void recPrint(TreeNode<T> *node); //in order traversal
+  void recOutput(TreeNode<T> *node);
 
 private:
   TreeNode<T> *root;
@@ -48,6 +49,16 @@ void BST<T>::printTree()
 }
 
 template <class T>
+void BST<T>::outputTree(string filename)
+{
+  std::ofstream ofs;
+  ofs.open(filename, std::ofstream::out | std::ofstream::trunc);
+  ofs.close();
+  recOutput(root);
+}
+
+
+template <class T>
 bool BST<T>::isEmpty()
 {
   return root == NULL;
@@ -61,9 +72,33 @@ void BST<T>::recPrint(TreeNode<T> *node)
   }
 
   recPrint(node->left);
-  node->key.printData();
+  cout << node->key.getId() << endl;
   recPrint(node->right);
 }
+
+template <class T>
+void BST<T>::recOutput(TreeNode<T> *node)
+{
+  if(node == NULL){
+    return;
+  }
+
+  recOutput(node->left);
+  ofstream outfile;
+  outfile.open("studentTable.txt", std::ios_base::app);
+  outfile << node->key.getName() << "\r\n";
+  outfile << node->key.getId() << "\r\n";
+  outfile << node->key.getLevel() << "\r\n";
+  outfile << node->key.getGPA() << "\r\n";
+  outfile << node->key.getAdvisor() << "\r\n";
+  outfile << "+" << "\r\n";
+  outfile.close();
+  recOutput(node->right);
+}
+
+
+
+
 
 template <class T>
 void BST<T>::insert(T data)

@@ -1,27 +1,22 @@
 #include <iostream>
-#include "person.h"
 #include "DoublyLinkedList.h"
 
 using namespace std;
 
 
 
-class faculty: public person{
+class faculty{
   public:
     faculty();
-    faculty(int idNum, string n, string lev, string depart);
+    faculty(int idNum, string n, string lev, string depart, DoublyLinkedList<int> a);
     string name;
     string level;
+    int id;
     string department;
-    int adviseeArray;
-    int numAdvisee;
     DoublyLinkedList<int> advisees;
 
+    int getId();
     string getName();
     string getLevel();
     string getDepartment();
-    void printFaculty();
-
-    unsigned int maxSize;
-
 };

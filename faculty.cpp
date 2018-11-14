@@ -10,22 +10,15 @@ faculty::faculty(){
   id = -1;
   level = "";
   department = "";
-  adviseeArray = new int[5];
-  numAdvisee = 0;
-  maxSize = 5;
-
 }
 
 
-faculty::faculty(int idNum, string n, string lev, string depart){
+faculty::faculty(int idNum, string n, string lev, string depart, DoublyLinkedList<int> a){
   id = idNum;
   name = n;
   level = lev;
   department = depart;
-
-  for(int i = 0; i < 5; ++i) {
-    adviseeArray[i] = -1;
-  }
+  advisees = a;
 }
 
 
@@ -41,27 +34,16 @@ string faculty::getDepartment(){
   return department;
 }
 
-void faculty::printAdvisee() {
-  if(numAdvisee == 0) {
-    cout << "No advisees";
-  }
-  else {
-    for(int i = 0; i < maxSize; ++i) {
-      if(adviseeArray[i] != -1) {
-        cout << adviseeArray[i];
-        if(i < numAdvisee - 1) {
-          cout  << ", ";
-        }
-      }
-    }
-  }
-  cout << endl;
+int faculty::getId(){
+  return id;
 }
 
-int faculty::getAdviseeID() {
-  return numAdvisee;
-}
 
+
+
+
+
+/*
 void faculty::addAdvisee(int id) {
   if(numAdvisee != maxSize) {
     int temp = 0;
@@ -123,3 +105,4 @@ bool faculty::removeAdvisee(int adviseeID) {
     return removed;
   }
 }
+*/
