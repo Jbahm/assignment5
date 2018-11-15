@@ -16,6 +16,7 @@ class faculty{
     DoublyLinkedList<int> advisees;
 
     int getId();
+    void printData();
     string getName();
     string getLevel();
     string getDepartment();

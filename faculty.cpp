@@ -42,8 +42,14 @@ DoublyLinkedList<int> faculty::getAdvisees(){
   return advisees;
 }
 
-
-
+void faculty::printData(){
+  cout << "Name: " << name << endl;
+  cout << "ID: " << id << endl;
+  cout << "Level: " << level << endl;
+  cout << "Department: " << department << endl;
+  advisees.printList();
+  cout << "----------" << endl;
+}
 
 
 

@@ -15,14 +15,19 @@ public:
 
   void insert(T data); //tested and working
   bool contains(T data); // tested and working
+  T find(int id);
   bool deleteNode(T data); // Works but it refuses to delete the first person entered(Maybe insert a dummy at the top of each tree to fix w/ ID 0)
   TreeNode<T>* getSuccessor(TreeNode<T> *d);
   bool isEmpty(); //tested and works
 
   void outputTreeStudent(string filename);
   void outputTreeFaculty(string filename);
+  void facPrint();
+  void stuPrint();
   void printTree(); //tested and works
   void recPrint(TreeNode<T> *node); //in order traversal
+  void printStu(TreeNode<T> *node);
+  void printFac(TreeNode<T> *node);
   void studentOutput(TreeNode<T> *node);
   void facultyOutput(TreeNode<T> *node);
 
@@ -49,6 +54,21 @@ void BST<T>::printTree()
 {
   recPrint(root);
 }
+
+template <class T>
+void BST<T>::stuPrint()
+{
+  printStu(root);
+}
+
+template <class T>
+void BST<T>::facPrint()
+{
+  printFac(root);
+}
+
+
+
 
 template <class T>
 void BST<T>::outputTreeStudent(string filename)
@@ -82,11 +102,36 @@ void BST<T>::recPrint(TreeNode<T> *node)
   if(node == NULL){
     return;
   }
-
   recPrint(node->left);
-  cout << node->key.getId() << endl;
+  //node->key.printData();
   recPrint(node->right);
 }
+
+
+template <class T>
+void BST<T>::printStu(TreeNode<T> *node)
+{
+  if(node == NULL){
+    return;
+  }
+  printStu(node->left);
+  node->key.printInfo();
+  printStu(node->right);
+}
+
+template <class T>
+void BST<T>::printFac(TreeNode<T> *node)
+{
+  if(node == NULL){
+    return;
+  }
+  printFac(node->left);
+  node->key.printData();
+  printFac(node->right);
+}
+
+
+
 
 template <class T>
 void BST<T>::studentOutput(TreeNode<T> *node)
@@ -101,6 +146,7 @@ void BST<T>::studentOutput(TreeNode<T> *node)
   outfile << node->key.getId() << "\r\n";
   outfile << node->key.getLevel() << "\r\n";
   outfile << node->key.getGPA() << "\r\n";
+  outfile << node->key.getMajor() << "\r\n";
   outfile << node->key.getAdvisor() << "\r\n";
   outfile << "+";
   outfile.close();
@@ -202,6 +248,28 @@ bool BST<T>::contains(T data)
       }
     }
   }
+
+
+
+template <class T>
+T BST<T>::find(int target)
+  {
+    if(isEmpty()){
+      cout << "Empty!" << endl;
+    }else{//not an empty tree, continue to search
+      TreeNode<T> *current = root;
+      while(current != NULL){
+        if(target < current->key.getId()){
+          current = current->left;
+        }else if(target == current->key.getId()){
+          return current->key;
+        }else{
+            current = current->right;
+          }
+        }
+      }
+    }
+
 
 
 template <class T>

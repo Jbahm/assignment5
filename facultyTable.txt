@@ -1,15 +1,7 @@
-Jose
-45
-Lecturer
-GCI
-1
-2
-+
 Rene
 234
 Lecturer
 ComputerScience
 1
 2
-3
 +

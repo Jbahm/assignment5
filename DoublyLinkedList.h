@@ -93,7 +93,7 @@ ListNode<T>* DoublyLinkedList<T>::getFront() {
 template <class T>
 void DoublyLinkedList<T>::printList() {
   ListNode<T> *curr = front;
-  while(true){
+  while(curr != NULL){
     cout << curr->data << endl;
     curr = curr->next;
   }

@@ -15,6 +15,7 @@ database::database(){
   string tempName;
   int tempId;
   string tempLevel;
+  string tempMajor;
   double tempGPA;
   int tempAdvisor;
   while(!students.eof()){
@@ -32,14 +33,16 @@ database::database(){
       }else if(counter == 4){
         tempGPA = stod(currentLine);
       }else if(counter == 5){
+        tempMajor = currentLine;
+      }else if(counter == 6){
         if(currentLine != "+"){
         tempAdvisor = stoi(currentLine.c_str());
         }
       }else{
-        //do nothing
+        //NOthing
       }
     }
-    student s(tempId, tempName, tempLevel, tempGPA, tempAdvisor);
+    student s(tempId, tempName, tempLevel, tempGPA, tempAdvisor, tempMajor);
     masterStudent.insert(s);
   }
   students.close();
@@ -60,20 +63,15 @@ database::database(){
       counter ++;
       facultyMems >> currentLine;
       if(counter == 1){
-        cout << currentLine << endl;
         tempN = currentLine;
       }else if(counter == 2){
-        cout << currentLine << endl;
         tempI = stoi(currentLine.c_str());
       }else if(counter == 3){
-        cout << currentLine << endl;
         tempL = currentLine;
       }else if(counter == 4){
-        cout << currentLine << endl;
         tempD = currentLine;
       }else{
         if(currentLine != "+"){
-        cout << currentLine << endl;
         tempAdvisees.insertBack(stoi(currentLine.c_str()));
         }
       }
@@ -89,12 +87,27 @@ void database::saveDB(){
 }
 
 void database::debugDB(){
-  DoublyLinkedList<int> advisees;
-  advisees.insertBack(1);
-  advisees.insertBack(2);
-  faculty f(45, "Jose", "Lecturer", "GCI", advisees);
-  masterFaculty.insert(f);
+  printStudent(3);
+  printFaculty(234);
   saveDB();
+}
+
+void database::printAllStudent(){
+  masterStudent.stuPrint();
+}
+
+void database::printAllFaculty(){
+  masterFaculty.facPrint();
+}
+
+void database::printStudent(int id){
+  student temp = masterStudent.find(id);
+  temp.printInfo();
+}
+
+void database::printFaculty(int id){
+  faculty temp = masterFaculty.find(id);
+  temp .printData();
 }
 
 

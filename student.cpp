@@ -14,10 +14,11 @@ student::student(){
 }
 
 
-student::student(int idNum, string n, string lev, double grade, int fac){
+student::student(int idNum, string n, string lev, double grade, int fac, string maj){
   id = idNum;
   name = n;
   level = lev;
+  major = maj;
   gpa = grade;
   advisor = fac;
 }
@@ -34,8 +35,21 @@ double student::getGPA(){
   return gpa;
 }
 
+void student::printInfo(){
+  cout << "Name: " << name << endl;
+  cout << "ID: " << id << endl;
+  cout << "GPA: " << gpa << endl;
+  cout << "Level: " << level << endl;
+  cout << "Major: " << major << endl;
+  cout << "----------" << endl;
+}
+
 int student::getAdvisor(){
   return advisor;
+}
+
+string student::getMajor(){
+  return major;
 }
 
 void student::changeAdvisor(int newAdvisor){

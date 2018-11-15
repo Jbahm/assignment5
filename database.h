@@ -14,7 +14,10 @@ class database
 
     void debugDB();
     void saveDB();
-
+    void printAllStudent();
+    void printAllFaculty();
+    void printStudent(int id);
+    void printFaculty(int id);
 
 
 
