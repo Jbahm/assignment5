@@ -87,8 +87,7 @@ void database::saveDB(){
 }
 
 void database::debugDB(){
-  printStudent(3);
-  printFaculty(234);
+  printAdvisees(234);
   saveDB();
 }
 
@@ -107,9 +106,24 @@ void database::printStudent(int id){
 
 void database::printFaculty(int id){
   faculty temp = masterFaculty.find(id);
-  temp .printData();
+  temp.printData();
 }
 
+void database::printAdvisor(int id){
+  student temp = masterStudent.find(id);
+  int advisorID = temp.getAdvisor();
+  printFaculty(advisorID);
+}
+
+void database::printAdvisees(int id){
+  faculty temp = masterFaculty.find(id);
+  DoublyLinkedList<int> fa = temp.getAdvisees();
+  ListNode<int> *curr = fa.getFront();
+  while(curr != NULL){
+    printStudent(curr->data);
+    curr = curr->next;
+  }
+}
 
 database::~database(){
 
