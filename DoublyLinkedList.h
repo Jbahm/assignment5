@@ -27,9 +27,11 @@ class DoublyLinkedList {
 
     void printList();
     void deletePos(int pos);
+    T returnPos(int pos);
     void outputList(string filename);
 
     bool isEmpty();
+    bool contains(T data);
     unsigned int getSize();
 };
 
@@ -98,6 +100,31 @@ void DoublyLinkedList<T>::printList() {
     curr = curr->next;
   }
 }
+
+template <class T>
+bool DoublyLinkedList<T>::contains(T data){
+  ListNode<T> *curr = front;
+  while(curr != NULL){
+    if(data == curr->data){
+      return true;
+    }
+    curr = curr->next;
+  }
+  return false;
+}
+
+template <class T>
+T DoublyLinkedList<T>::returnPos(int pos){
+  ListNode<T> *curr = front;
+  for(int i = 0; i <= pos; i++){
+    if(i == pos){
+      return curr->data;
+    }
+    curr = curr->next;
+  }
+  return curr->data;
+}
+
 
 template <class T>
 void DoublyLinkedList<T>::outputList(string filename) {

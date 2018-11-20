@@ -15,7 +15,7 @@ public:
 
   void insert(T data); //tested and working
   bool contains(T data); // tested and working
-  T find(int id);
+  T find(int target);
   bool deleteNode(T data); // Works but it refuses to delete the first person entered(Maybe insert a dummy at the top of each tree to fix w/ ID 0)
   TreeNode<T>* getSuccessor(TreeNode<T> *d);
   bool isEmpty(); //tested and works
@@ -148,7 +148,7 @@ void BST<T>::studentOutput(TreeNode<T> *node)
   outfile << node->key.getGPA() << "\r\n";
   outfile << node->key.getMajor() << "\r\n";
   outfile << node->key.getAdvisor() << "\r\n";
-  outfile << "+";
+  outfile << "+" << "\r\n";
   outfile.close();
   studentOutput(node->right);
 }
@@ -260,15 +260,15 @@ T BST<T>::find(int target)
       TreeNode<T> *current = root;
       while(current != NULL){
         if(target < current->key.getId()){
-          current = current->left;
+            current = current->left;
         }else if(target == current->key.getId()){
           return current->key;
-        }else{
+          }else{
             current = current->right;
+            }
           }
         }
       }
-    }
 
 
 

@@ -5,3 +5,17 @@ Freshman
 ComputerScience
 234
 +
+JoeBob
+887
+Sophomore
+4.3
+Biology
+234
++
+Steve
+2778
+Freshman
+2
+Chemistry
+234
++

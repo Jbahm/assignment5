@@ -51,6 +51,10 @@ void faculty::printData(){
   cout << "----------" << endl;
 }
 
+void faculty::addAdvisee(int id){
+  advisees.insertBack(id);
+}
+
 
 
 /*

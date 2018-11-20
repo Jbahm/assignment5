@@ -3,6 +3,7 @@
 #include <string>
 #include <cstring>
 #include "database.h"
+#include <stdlib.h>
 
 using namespace std;
 
@@ -28,6 +29,7 @@ database::database(){
         tempName = currentLine;
       }else if(counter == 2){
         tempId = stoi(currentLine.c_str());
+        studentIDs.insertBack(tempId);
       }else if(counter == 3){
         tempLevel = currentLine;
       }else if(counter == 4){
@@ -66,6 +68,7 @@ database::database(){
         tempN = currentLine;
       }else if(counter == 2){
         tempI = stoi(currentLine.c_str());
+        facultyIDs.insertBack(tempI);
       }else if(counter == 3){
         tempL = currentLine;
       }else if(counter == 4){
@@ -87,7 +90,7 @@ void database::saveDB(){
 }
 
 void database::debugDB(){
-  printAdvisees(234);
+  addStudent();
   saveDB();
 }
 
@@ -113,6 +116,32 @@ void database::printAdvisor(int id){
   student temp = masterStudent.find(id);
   int advisorID = temp.getAdvisor();
   printFaculty(advisorID);
+}
+
+void database::addStudent(){
+  string newName;
+  string newLevel;
+  string newMajor;
+  double newGPA;
+  int newAdvisor;
+  int numberAdvisors = facultyIDs.getSize();
+  newAdvisor = facultyIDs.returnPos(rand() % numberAdvisors);
+  int newID = rand() % 5000 + 1;
+  while(studentIDs.contains(newID)){
+    newID = rand() % 5000 + 1;
+  }
+  cout << "Enter the Name of the Student(No Spaces):" << endl;
+  cin >> newName;
+  cout << "Enter the Student's major(No Spaces): " << endl;
+  cin >> newMajor;
+  cout << "Enter the students level: " << endl;
+  cin >> newLevel;
+  cout << "Enter the students GPA: " << endl;
+  cin >> newGPA;
+  student s(newID, newName, newLevel, newGPA, newAdvisor, newMajor);
+  faculty temp = masterFaculty.find(newAdvisor);
+  temp.addAdvisee(newID);
+  masterStudent.insert(s);
 }
 
 void database::printAdvisees(int id){
