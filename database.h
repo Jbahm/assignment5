@@ -21,6 +21,8 @@ class database
     void printAdvisor(int id); //Menu 5
     void printAdvisees(int id); //Menu 6
     void addStudent();//Menu 7
+    void addFaculty();//Menu 9
+    
 
 
 

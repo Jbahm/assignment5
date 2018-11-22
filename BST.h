@@ -167,12 +167,12 @@ void BST<T>::facultyOutput(TreeNode<T> *node)
     outfile << node->key.getLevel() << "\r\n";
     outfile << node->key.getDepartment() << "\r\n";
     outfile.close();
-    DoublyLinkedList<int> a = node->key.getAdvisees();
-    a.outputList("facultyTable.txt");
+    DoublyLinkedList<int> currentAdvisees = node->key.getAdvisees();
     ofstream outfile2;
     outfile2.open("facultyTable.txt", std::ios_base::app);
+    currentAdvisees.outputList("facultyTable.txt");
     outfile2 << "+" << "\r\n";
-    outfile.close();
+    outfile2.close();
     facultyOutput(node->right);
 }
 

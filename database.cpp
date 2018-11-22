@@ -58,6 +58,7 @@ database::database(){
   string tempL;
   string tempD;
   DoublyLinkedList<int> tempAdvisees;
+  DoublyLinkedList<int> bl;
   while(!facultyMems.eof()){
     counter = 0;
     currentLine = "";
@@ -81,6 +82,7 @@ database::database(){
     }
     faculty f(tempI, tempN, tempL, tempD, tempAdvisees);
     masterFaculty.insert(f);
+    tempAdvisees = bl;
   }
 }
 
@@ -90,7 +92,7 @@ void database::saveDB(){
 }
 
 void database::debugDB(){
-  addStudent();
+  addFaculty();
   saveDB();
 }
 
@@ -127,7 +129,7 @@ void database::addStudent(){
   int numberAdvisors = facultyIDs.getSize();
   newAdvisor = facultyIDs.returnPos(rand() % numberAdvisors);
   int newID = rand() % 5000 + 1;
-  while(studentIDs.contains(newID)){
+  while(studentIDs.contains(newID) || facultyIDs.contains(newID)){
     newID = rand() % 5000 + 1;
   }
   cout << "Enter the Name of the Student(No Spaces):" << endl;
@@ -142,6 +144,26 @@ void database::addStudent(){
   faculty temp = masterFaculty.find(newAdvisor);
   temp.addAdvisee(newID);
   masterStudent.insert(s);
+}
+
+void database::addFaculty(){
+  string newName;
+  string newLevel;
+  string newDepartment;
+  DoublyLinkedList<int> adviseeList;
+  int newID = rand() % 5000 + 1;
+  while(studentIDs.contains(newID) || facultyIDs.contains(newID)){
+    newID = rand() % 5000 + 1;
+  }
+
+  cout << "Enter the name of the Faculty(No Spaces):" << endl;
+  cin >> newName;
+  cout << "Enter the level of the faculty(No Spaces):" << endl;
+  cin >> newLevel;
+  cout << "Enter the faculty's department(No Spaces):" << endl;
+  cin >> newDepartment;
+  faculty f(newID, newName, newLevel, newDepartment, adviseeList);
+  masterFaculty.insert(f);
 }
 
 void database::printAdvisees(int id){
