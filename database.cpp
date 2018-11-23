@@ -58,7 +58,6 @@ database::database(){
   string tempL;
   string tempD;
   DoublyLinkedList<int> tempAdvisees;
-  DoublyLinkedList<int> bl;
   while(!facultyMems.eof()){
     counter = 0;
     currentLine = "";
@@ -82,7 +81,6 @@ database::database(){
     }
     faculty f(tempI, tempN, tempL, tempD, tempAdvisees);
     masterFaculty.insert(f);
-    tempAdvisees = bl;
   }
 }
 
@@ -92,33 +90,51 @@ void database::saveDB(){
 }
 
 void database::debugDB(){
+  addStudent();
   saveDB();
 }
 
+//Print all student info by ascending id function
 void database::printAllStudent(){
   masterStudent.stuPrint();
 }
 
+//Print all faculty info by ascending id function
 void database::printAllFaculty(){
   masterFaculty.facPrint();
 }
 
+//Print student info by student id function
 void database::printStudent(int id){
   student temp = masterStudent.find(id);
   temp.printInfo();
 }
 
+//Print all faculty info by faculty id function
 void database::printFaculty(int id){
   faculty temp = masterFaculty.find(id);
   temp.printData();
 }
 
+//Print advisor info by student id function
 void database::printAdvisor(int id){
   student temp = masterStudent.find(id);
   int advisorID = temp.getAdvisor();
   printFaculty(advisorID);
 }
 
+//Print advisee info by faculty id function
+void database::printAdvisees(int id){
+  faculty temp = masterFaculty.find(id);
+  DoublyLinkedList<int> fa = temp.getAdvisees();
+  ListNode<int> *curr = fa.getFront();
+  while(curr != NULL){
+    printStudent(curr->data);
+    curr = curr->next;
+  }
+}
+
+//Add a new student function
 void database::addStudent(){
   string newName;
   string newLevel;
@@ -128,7 +144,7 @@ void database::addStudent(){
   int numberAdvisors = facultyIDs.getSize();
   newAdvisor = facultyIDs.returnPos(rand() % numberAdvisors);
   int newID = rand() % 5000 + 1;
-  while(studentIDs.contains(newID) || facultyIDs.contains(newID)){
+  while(studentIDs.contains(newID)){
     newID = rand() % 5000 + 1;
   }
   cout << "Enter the Name of the Student(No Spaces):" << endl;
@@ -145,6 +161,7 @@ void database::addStudent(){
   masterStudent.insert(s);
 }
 
+//Add a new faculty function
 void database::addFaculty(){
   string newName;
   string newLevel;
@@ -165,13 +182,102 @@ void database::addFaculty(){
   masterFaculty.insert(f);
 }
 
-void database::printAdvisees(int id){
+//Delete a student by student id function
+void database::deleteStudent(int id){
+  student temp = masterStudent.find(id);
+  //masterStudent.deleteNode(id);
+}
+
+//Delete faculty by faculty id function
+void database::deleteFaculty(int id){
   faculty temp = masterFaculty.find(id);
-  DoublyLinkedList<int> fa = temp.getAdvisees();
-  ListNode<int> *curr = fa.getFront();
-  while(curr != NULL){
-    printStudent(curr->data);
-    curr = curr->next;
+  //masterFaculty.deleteNode(id);
+}
+
+//Remove advisee by student & faculty ids function
+void database::removeAdvisee(int id){
+  student temp= masterStudent.find(id);
+}
+
+//exit function
+void database::exit(){
+  cout<<"Exiting the program."<<endl;
+}
+
+//print the main menu function
+void database::printMenu(){
+  string menuinput;
+  int numinput;
+  bool true_ = true;
+  int id;
+
+  while(true){
+    cout <<"Please choose a menu option" << endl;
+    cout << 1 << ".  Print all student info by ascending id" << endl;
+    cout << 2 << ".  Print all faculty info by ascending id" << endl;
+    cout << 3 << ".  Print student info by student id" << endl;
+    cout << 4 << ".  Print faculty info by faculty id" << endl;
+    cout << 5 << ".  Print advisor info by student id" << endl;
+    cout << 6 << ".  Print advisee info by faculty id" << endl;
+    cout << 7 << ".  Add a new student" << endl;
+    cout << 8 << ".  Delete a student by student id" << endl;
+    cout << 9 << ".  Add a new faculty" << endl;
+    cout << 10 << ". Delete faculty by faculty id" << endl;
+    cout << 11 << ". Change advisor by student & faculty ids" << endl;
+    cout << 12 << ". Remove advisee by student & faculty ids" << endl;
+    cout << 13 << ". Rollback" << endl;
+    cout << 14 << ". Exit" << endl;
+
+    cin >> menuinput;
+    numinput = stoi(menuinput.c_str());
+
+    switch (numinput) {
+      case 1:
+        printAllStudent();
+        break;
+      case 2:
+        printAllFaculty();
+        break;
+      case 3:
+        printStudent(id);
+        break;
+      case 4:
+        printFaculty(id);
+        break;
+      case 5:
+        printAdvisor(id);
+        break;
+      case 6:
+        printAdvisees(id);
+        break;
+      case 7:
+        addStudent();
+        break;
+      case 8:
+        //deleteStudent(id);
+        break;
+      case 9:
+        addFaculty();
+        break;
+      case 10:
+        //deleteFaculty(id);
+        break;
+      case 11:
+        //changeAdvisor(id);
+        break;
+      case 12:
+        //removeAdvisee(id);
+        break;
+      case 13:
+        //rollback();
+        break;
+      case 14:
+        exit();
+        break;
+      default:
+        cout<<"Please enter a valid menu option."<<endl;
+        continue;
+    }
   }
 }
 
