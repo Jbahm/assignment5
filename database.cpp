@@ -58,6 +58,7 @@ database::database(){
   string tempL;
   string tempD;
   DoublyLinkedList<int> tempAdvisees;
+  DoublyLinkedList<int> bl;
   while(!facultyMems.eof()){
     counter = 0;
     currentLine = "";
@@ -81,6 +82,7 @@ database::database(){
     }
     faculty f(tempI, tempN, tempL, tempD, tempAdvisees);
     masterFaculty.insert(f);
+    tempAdvisees = bl;
   }
 }
 
