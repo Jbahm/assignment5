@@ -92,7 +92,6 @@ void database::saveDB(){
 }
 
 void database::debugDB(){
-  addFaculty();
   saveDB();
 }
 

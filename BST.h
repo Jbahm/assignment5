@@ -28,8 +28,8 @@ public:
   void recPrint(TreeNode<T> *node); //in order traversal
   void printStu(TreeNode<T> *node);
   void printFac(TreeNode<T> *node);
-  void studentOutput(TreeNode<T> *node);
-  void facultyOutput(TreeNode<T> *node);
+  void studentOutput(TreeNode<T> *node, bool isFirst);
+  void facultyOutput(TreeNode<T> *node, bool isFirst);
 
 private:
   TreeNode<T> *root;
@@ -76,7 +76,7 @@ void BST<T>::outputTreeStudent(string filename)
   std::ofstream ofs;
   ofs.open(filename, std::ofstream::out | std::ofstream::trunc);
   ofs.close();
-  studentOutput(root);
+  studentOutput(root, true);
 }
 
 
@@ -86,7 +86,7 @@ void BST<T>::outputTreeFaculty(string filename)
   std::ofstream ofs;
   ofs.open(filename, std::ofstream::out | std::ofstream::trunc);
   ofs.close();
-  facultyOutput(root);
+  facultyOutput(root, true);
 }
 
 
@@ -134,35 +134,45 @@ void BST<T>::printFac(TreeNode<T> *node)
 
 
 template <class T>
-void BST<T>::studentOutput(TreeNode<T> *node)
+void BST<T>::studentOutput(TreeNode<T> *node, bool isFirst)
 {
   if(node == NULL){
     return;
   }
-  studentOutput(node->left);
+  studentOutput(node->left, false);
   ofstream outfile;
   outfile.open("studentTable.txt", std::ios_base::app);
+  if(isFirst == true){
   outfile << node->key.getName() << "\r\n";
+  }else{
+  outfile << "\r\n";
+  outfile << node->key.getName() << "\r\n";
+  }
   outfile << node->key.getId() << "\r\n";
   outfile << node->key.getLevel() << "\r\n";
   outfile << node->key.getGPA() << "\r\n";
   outfile << node->key.getMajor() << "\r\n";
   outfile << node->key.getAdvisor() << "\r\n";
-  outfile << "+" << "\r\n";
+  outfile << "+";
   outfile.close();
-  studentOutput(node->right);
+  studentOutput(node->right, false);
 }
 
 template <class T>
-void BST<T>::facultyOutput(TreeNode<T> *node)
+void BST<T>::facultyOutput(TreeNode<T> *node, bool isFirst)
 {
     if(node == NULL){
     return;
     }
-    facultyOutput(node->left);
+    facultyOutput(node->left, false);
     ofstream outfile;
     outfile.open("facultyTable.txt", std::ios_base::app);
+    if(isFirst == true){
     outfile << node->key.getName() << "\r\n";
+    }else{
+    outfile << "\r\n";
+    outfile << node->key.getName() << "\r\n";
+    }
     outfile << node->key.getId() << "\r\n";
     outfile << node->key.getLevel() << "\r\n";
     outfile << node->key.getDepartment() << "\r\n";
@@ -171,9 +181,9 @@ void BST<T>::facultyOutput(TreeNode<T> *node)
     ofstream outfile2;
     outfile2.open("facultyTable.txt", std::ios_base::app);
     currentAdvisees.outputList("facultyTable.txt");
-    outfile2 << "+" << "\r\n";
+    outfile2 << "+";
     outfile2.close();
-    facultyOutput(node->right);
+    facultyOutput(node->right, false);
 }
 
 
