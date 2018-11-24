@@ -29,6 +29,8 @@ class DoublyLinkedList {
     void deletePos(int pos);
     T returnPos(int pos);
     void outputList(string filename);
+    int returnLoc(int n);
+    DoublyLinkedList<T> deleteFromList(T d);
 
     bool isEmpty();
     bool contains(T data);
@@ -126,6 +128,21 @@ T DoublyLinkedList<T>::returnPos(int pos){
 }
 
 
+
+template <class T>
+DoublyLinkedList<T> DoublyLinkedList<T>::deleteFromList(T d){
+  DoublyLinkedList<T> nList;
+  ListNode<T> *curr = front;
+  while(curr != NULL){
+    if(curr->data != d){
+    nList.insertBack(curr->data);
+    }
+    curr = curr->next;
+  }
+  return nList;
+}
+
+
 template <class T>
 void DoublyLinkedList<T>::outputList(string filename) {
   ListNode<T> *curr = front;
@@ -143,6 +160,7 @@ void DoublyLinkedList<T>::outputList(string filename) {
 
 template <class T>
 void DoublyLinkedList<T>::deletePos(int pos) {
+  pos--;
   int idx = 0;
   ListNode<T> *curr = front;
   ListNode<T> *prev = front;

@@ -142,6 +142,7 @@ void BST<T>::studentOutput(TreeNode<T> *node, bool isFirst)
   studentOutput(node->left, false);
   ofstream outfile;
   outfile.open("studentTable.txt", std::ios_base::app);
+  if(node->key.getId() != 2500){
   if(isFirst == true){
   outfile << node->key.getName() << "\r\n";
   }else{
@@ -155,7 +156,9 @@ void BST<T>::studentOutput(TreeNode<T> *node, bool isFirst)
   outfile << node->key.getAdvisor() << "\r\n";
   outfile << "+";
   outfile.close();
+  }
   studentOutput(node->right, false);
+
 }
 
 template <class T>

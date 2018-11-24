@@ -55,6 +55,10 @@ void faculty::addAdvisee(int id){
   advisees.insertBack(id);
 }
 
+void faculty::removeAdvisee(int id){
+  advisees = advisees.deleteFromList(id);
+}
+
 
 
 /*

@@ -18,6 +18,7 @@ class faculty{
     int getId();
     void printData();
     void addAdvisee(int id);
+    void removeAdvisee(int id);
     string getName();
     string getLevel();
     string getDepartment();

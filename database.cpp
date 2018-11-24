@@ -92,6 +92,7 @@ void database::saveDB(){
 }
 
 void database::debugDB(){
+  changeAdvisor();
   saveDB();
 }
 
@@ -163,7 +164,37 @@ void database::addFaculty(){
   cin >> newDepartment;
   faculty f(newID, newName, newLevel, newDepartment, adviseeList);
   masterFaculty.insert(f);
+
 }
+
+
+void database::changeAdvisor(){
+  int stuID;
+  int newFacID;
+
+  cout << "Enter a student ID" << endl;
+  cin >> stuID;
+  cout << "Enter the faculty ID" << endl;
+  cin >> newFacID;
+  faculty newAdvisor = masterFaculty.find(newFacID);
+  student s = masterStudent.find(stuID);
+  faculty oldAdvisor = masterFaculty.find(s.getAdvisor());
+
+  newAdvisor.addAdvisee(stuID);
+  masterFaculty.deleteNode(newAdvisor);
+  masterFaculty.insert(newAdvisor);
+
+  oldAdvisor.removeAdvisee(stuID);
+  masterFaculty.deleteNode(oldAdvisor);
+  masterFaculty.insert(oldAdvisor);
+
+  s.changeAdvisor(newFacID);
+  masterStudent.deleteNode(s);
+  masterStudent.insert(s);
+
+
+}
+
 
 void database::printAdvisees(int id){
   faculty temp = masterFaculty.find(id);
