@@ -1,4 +1,5 @@
 #include <iostream>
+#include <string>
 #include "student.h"
 #include "faculty.h"
 #include "BST.h"
@@ -14,6 +15,7 @@ class database
 
     void debugDB();
     void saveDB();
+    void printMenu(); //print menu function
     void printAllStudent(); //Menu 1
     void printAllFaculty(); //Menu 2
     void printStudent(int id); //Menu 3
@@ -21,13 +23,20 @@ class database
     void printAdvisor(int id); //Menu 5
     void printAdvisees(int id); //Menu 6
     void addStudent();//Menu 7
+    void deleteStudent(int id); //menu 8
     void addFaculty();//Menu 9
+<<<<<<< HEAD
     void changeAdvisor();//Menu 11
 
 
 
 
 
+=======
+    void deleteFaculty(int id);//menu 10
+    void removeAdvisee(int id);//menu 12
+    void exit();//menu 14
+>>>>>>> 76bfd221135fe9f951d30b54a66ed1a26f4f5d90
 
 
     BST<student> masterStudent;
