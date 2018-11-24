@@ -92,11 +92,8 @@ void database::saveDB(){
 }
 
 void database::debugDB(){
-<<<<<<< HEAD
   changeAdvisor();
-=======
   addStudent();
->>>>>>> 76bfd221135fe9f951d30b54a66ed1a26f4f5d90
   saveDB();
 }
 
@@ -217,10 +214,7 @@ void database::changeAdvisor(){
 
 }
 
-<<<<<<< HEAD
 
-void database::printAdvisees(int id){
-=======
 //Delete a student by student id function
 void database::deleteStudent(int id){
   student temp = masterStudent.find(id);
@@ -229,14 +223,13 @@ void database::deleteStudent(int id){
 
 //Delete faculty by faculty id function
 void database::deleteFaculty(int id){
->>>>>>> 76bfd221135fe9f951d30b54a66ed1a26f4f5d90
   faculty temp = masterFaculty.find(id);
   //masterFaculty.deleteNode(id);
 }
 
 //Remove advisee by student & faculty ids function
 void database::removeAdvisee(int id){
-  student temp= masterStudent.find(id);
+  student temp = masterStudent.find(id);
 }
 
 //exit function
