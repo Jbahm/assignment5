@@ -197,7 +197,8 @@ void database::updateStuInfo(int id, string newName, string newLevel, double new
 }
 
 void database::debugDB(){
-  changeAdvisor();
+  printMenu();
+  //changeAdvisor();
   saveDB();
 }
 
@@ -266,8 +267,9 @@ void database::addStudent(){
   student s(newID, newName, newLevel, newGPA, newAdvisor, newMajor);
   faculty temp = masterFaculty.find(newAdvisor);
   temp.addAdvisee(newID);
-  updateFacInfo(temp.getID(), temp.getName(), temp.getLevel(), temp.getDepartment(), temp.getAdvisees());
+  updateFacInfo(temp.getId(), temp.getName(), temp.getLevel(), temp.getDepartment(), temp.getAdvisees());
   masterStudent.insert(s);
+  cout<<"*Student Added"<<endl;
 }
 
 //Add a new faculty function
@@ -289,7 +291,7 @@ void database::addFaculty(){
   cin >> newDepartment;
   faculty f(newID, newName, newLevel, newDepartment, adviseeList);
   masterFaculty.insert(f);
-
+  cout<<"*Faculty Added"<<endl;
 }
 
 
@@ -316,7 +318,7 @@ void database::changeAdvisor(){
   newAdvisor.addAdvisee(stuID);
   updateFacInfo(oldAdvisor.getId(), oldAdvisor.getName(), oldAdvisor.getLevel(), oldAdvisor.getDepartment(), oldAdvisor.getAdvisees());
   updateFacInfo(newAdvisor.getId(), newAdvisor.getName(), newAdvisor.getLevel(), newAdvisor.getDepartment(), newAdvisor.getAdvisees());
-
+  cout<<"*Advisor Changed*"<<endl;
 
 }
 
@@ -329,6 +331,7 @@ void database::deleteStudent(int id){
   DoublyLinkedList<int> newAdvisees = f.getAdvisees();
   newAdvisees = newAdvisees.deleteFromList(id);
   updateFacInfo(f.getId(), f.getName(), f.getLevel(), f.getDepartment(), newAdvisees);
+  cout<<"*Student Deleted*"<<endl;
 }
 
 //Delete faculty by faculty id function
@@ -354,7 +357,7 @@ void database::printMenu(){
   int id;
 
   while(true){
-    cout <<"Please choose a menu option" << endl;
+    cout <<"*Please choose a menu option*" << endl;
     cout << 1 << ".  Print all student info by ascending id" << endl;
     cout << 2 << ".  Print all faculty info by ascending id" << endl;
     cout << 3 << ".  Print student info by student id" << endl;
@@ -369,6 +372,7 @@ void database::printMenu(){
     cout << 12 << ". Remove advisee by student & faculty ids" << endl;
     cout << 13 << ". Rollback" << endl;
     cout << 14 << ". Exit" << endl;
+    cout<<"********************************"<<endl;
 
     cin >> menuinput;
     numinput = stoi(menuinput.c_str());
@@ -381,41 +385,53 @@ void database::printMenu(){
         printAllFaculty();
         break;
       case 3:
+        cout<<"Enter the student id..."<<endl;
+        cin>>id;
         printStudent(id);
         break;
       case 4:
+        cout<<"Enter the faculty id..."<<endl;
+        cin>>id;
         printFaculty(id);
         break;
       case 5:
+        cout<<"Enter the student id..."<<endl;
+        cin>>id;
         printAdvisor(id);
         break;
       case 6:
+        cout<<"Enter the faculty id..."<<endl;
+        cin>>id;
         printAdvisees(id);
         break;
       case 7:
         addStudent();
         break;
       case 8:
-        //deleteStudent(id);
+        cout<<"Enter the student id..."<<endl;
+        cin>>id;
+        deleteStudent(id);
         break;
       case 9:
         addFaculty();
         break;
       case 10:
-        //deleteFaculty(id);
+        cout<<"Enter the faculty id..."<<endl;
+        cin>>id;
+        deleteFaculty(id);
         break;
       case 11:
-        //changeAdvisor(id);
+        changeAdvisor();
         break;
       case 12:
-        //removeAdvisee(id);
+        removeAdvisee(id);
         break;
       case 13:
         //rollback();
         break;
       case 14:
         exit();
-        break;
+        return;
       default:
         cout<<"Please enter a valid menu option."<<endl;
         continue;

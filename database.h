@@ -29,8 +29,8 @@ class database
     void addStudent();//Menu 7
     void deleteStudent(int id); //menu 8
     void addFaculty();//Menu 9
-    void changeAdvisor();//Menu 11
     void deleteFaculty(int id);//menu 10
+    void changeAdvisor();//Menu 11
     void removeAdvisee(int id);//menu 12
     void exit();//menu 14
 
