@@ -266,7 +266,7 @@ void database::addStudent(){
   student s(newID, newName, newLevel, newGPA, newAdvisor, newMajor);
   faculty temp = masterFaculty.find(newAdvisor);
   temp.addAdvisee(newID);
-  updateFacInfo(temp.getID(), temp.getName(), temp.getLevel(), temp.getDepartment(), temp.getAdvisees());
+  updateFacInfo(temp.getId(), temp.getName(), temp.getLevel(), temp.getDepartment(), temp.getAdvisees());
   masterStudent.insert(s);
 }
 
@@ -344,6 +344,7 @@ void database::removeAdvisee(int id){
 //exit function
 void database::exit(){
   cout<<"Exiting the program."<<endl;
+  saveDB();
 }
 
 //print the main menu function
