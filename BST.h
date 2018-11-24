@@ -137,7 +137,7 @@ template <class T>
 void BST<T>::studentOutput(TreeNode<T> *node, bool isFirst)
 {
   if(node == NULL){
-    return;
+  return;
   }
   studentOutput(node->left, false);
   ofstream outfile;
@@ -158,7 +158,6 @@ void BST<T>::studentOutput(TreeNode<T> *node, bool isFirst)
   outfile.close();
   }
   studentOutput(node->right, false);
-
 }
 
 template <class T>
@@ -170,6 +169,7 @@ void BST<T>::facultyOutput(TreeNode<T> *node, bool isFirst)
     facultyOutput(node->left, false);
     ofstream outfile;
     outfile.open("facultyTable.txt", std::ios_base::app);
+    if(node->key.getId() != 2501){
     if(isFirst == true){
     outfile << node->key.getName() << "\r\n";
     }else{
@@ -186,6 +186,7 @@ void BST<T>::facultyOutput(TreeNode<T> *node, bool isFirst)
     currentAdvisees.outputList("facultyTable.txt");
     outfile2 << "+";
     outfile2.close();
+    }
     facultyOutput(node->right, false);
 }
 

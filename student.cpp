@@ -41,6 +41,7 @@ void student::printInfo(){
   cout << "GPA: " << gpa << endl;
   cout << "Level: " << level << endl;
   cout << "Major: " << major << endl;
+  cout << "Advisor: " << advisor << endl;
   cout << "----------" << endl;
 }
 
@@ -52,6 +53,6 @@ string student::getMajor(){
   return major;
 }
 
-void student::changeAdvisor(int newAdvisor){
+void student::setAdvisor(int newAdvisor){
   advisor = newAdvisor;
 }

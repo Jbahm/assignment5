@@ -1,14 +1,8 @@
+
 Bob
 3
 Freshman
-5.6
-ComputerScience
-2456
-+
-Jim
-25
-Freshman
 2.4
-ComputerScience
-1916
+Biology
+234
 +

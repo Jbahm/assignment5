@@ -1,3 +1,4 @@
+
 Rene
 234
 Lecturer
@@ -7,10 +8,9 @@ Vajiac
 1916
 Lecturer
 Math
-25
 +
 Moshier
-2456
+2345
 Lecturer
 Math
 3

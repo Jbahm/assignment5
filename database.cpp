@@ -12,6 +12,8 @@ database::database(){
   //Populates the student table
   ifstream students;
   students.open("studentTable.txt");
+  student dummyStud(2500, "ThisIsA", "DummyVariable", 1.0, 2501, "PleaseIgnoreMe");
+  masterStudent.insert(dummyStud);
   int counter;
   string tempName;
   int tempId;
@@ -59,6 +61,8 @@ database::database(){
   string tempD;
   DoublyLinkedList<int> tempAdvisees;
   DoublyLinkedList<int> bl;
+  faculty dummyFac(2501, "ThisIsA", "DummyVariable", "PleaseIgnoreMe", bl);
+  masterFaculty.insert(dummyFac);
   while(!facultyMems.eof()){
     counter = 0;
     currentLine = "";
@@ -68,7 +72,7 @@ database::database(){
       if(counter == 1){
         tempN = currentLine;
       }else if(counter == 2){
-        tempI = stoi(currentLine.c_str());
+        tempI = stoi(currentLine.c_str());;
         facultyIDs.insertBack(tempI);
       }else if(counter == 3){
         tempL = currentLine;
@@ -92,8 +96,6 @@ void database::saveDB(){
 }
 
 void database::debugDB(){
-  changeAdvisor();
-  addStudent();
   saveDB();
 }
 
@@ -150,6 +152,7 @@ void database::addStudent(){
   while(studentIDs.contains(newID)){
     newID = rand() % 5000 + 1;
   }
+  studentIDs.insertBack(newID);
   cout << "Enter the Name of the Student(No Spaces):" << endl;
   cin >> newName;
   cout << "Enter the Student's major(No Spaces): " << endl;
@@ -188,30 +191,6 @@ void database::addFaculty(){
 
 
 void database::changeAdvisor(){
-  int stuID;
-  int newFacID;
-
-  cout << "Enter a student ID" << endl;
-  cin >> stuID;
-  cout << "Enter the faculty ID" << endl;
-  cin >> newFacID;
-  faculty newAdvisor = masterFaculty.find(newFacID);
-  student s = masterStudent.find(stuID);
-  faculty oldAdvisor = masterFaculty.find(s.getAdvisor());
-
-  newAdvisor.addAdvisee(stuID);
-  masterFaculty.deleteNode(newAdvisor);
-  masterFaculty.insert(newAdvisor);
-
-  oldAdvisor.removeAdvisee(stuID);
-  masterFaculty.deleteNode(oldAdvisor);
-  masterFaculty.insert(oldAdvisor);
-
-  s.changeAdvisor(newFacID);
-  masterStudent.deleteNode(s);
-  masterStudent.insert(s);
-
-
 }
 
 

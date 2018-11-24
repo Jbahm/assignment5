@@ -22,6 +22,6 @@ class student: public person{
     double getGPA();
     int getAdvisor();
     string getMajor();
-    void changeAdvisor(int newAdvisor);
+    void setAdvisor(int newAdvisor);
 
 };
