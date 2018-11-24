@@ -266,6 +266,7 @@ void database::addStudent(){
   student s(newID, newName, newLevel, newGPA, newAdvisor, newMajor);
   faculty temp = masterFaculty.find(newAdvisor);
   temp.addAdvisee(newID);
+  updateFacInfo(temp.getID(), temp.getName(), temp.getLevel(), temp.getDepartment(), temp.getAdvisees());
   masterStudent.insert(s);
 }
 
