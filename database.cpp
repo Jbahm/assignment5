@@ -12,8 +12,6 @@ database::database(){
   //Populates the student table
   ifstream students;
   students.open("studentTable.txt");
-  student dummyStud(2500, "ThisIsA", "DummyVariable", 1.0, 2501, "PleaseIgnoreMe");
-  masterStudent.insert(dummyStud);
   int counter;
   string tempName;
   int tempId;
@@ -61,8 +59,6 @@ database::database(){
   string tempD;
   DoublyLinkedList<int> tempAdvisees;
   DoublyLinkedList<int> bl;
-  faculty dummyFac(2501, "ThisIsA", "DummyVariable", "PleaseIgnoreMe", bl);
-  masterFaculty.insert(dummyFac);
   while(!facultyMems.eof()){
     counter = 0;
     currentLine = "";
@@ -90,12 +86,118 @@ database::database(){
   }
 }
 
+void database::repopulate(){
+  string currentLine = "";
+  BST<student> newStuMast;
+  //Populates the student table
+  ifstream students;
+  students.open("studentTable.txt");
+  int counter;
+  string tempName;
+  int tempId;
+  string tempLevel;
+  string tempMajor;
+  double tempGPA;
+  int tempAdvisor;
+  while(!students.eof()){
+    counter = 0;
+    currentLine = "";
+    while(currentLine != "+"){
+      counter++;
+      students >> currentLine;
+      if(counter == 1){
+        tempName = currentLine;
+      }else if(counter == 2){
+        tempId = stoi(currentLine.c_str());
+        studentIDs.insertBack(tempId);
+      }else if(counter == 3){
+        tempLevel = currentLine;
+      }else if(counter == 4){
+        tempGPA = stod(currentLine);
+      }else if(counter == 5){
+        tempMajor = currentLine;
+      }else if(counter == 6){
+        if(currentLine != "+"){
+        tempAdvisor = stoi(currentLine.c_str());
+        }
+      }else{
+        //NOthing
+      }
+    }
+    student s(tempId, tempName, tempLevel, tempGPA, tempAdvisor, tempMajor);
+    newStuMast.insert(s);
+  }
+  students.close();
+
+  //populates the faculty table
+
+  ifstream facultyMems;
+  facultyMems.open("facultyTable.txt");
+  BST<faculty> newFacMast;
+  string tempN;
+  int tempI;
+  string tempL;
+  string tempD;
+  DoublyLinkedList<int> tempAdvisees;
+  DoublyLinkedList<int> bl;
+  while(!facultyMems.eof()){
+    counter = 0;
+    currentLine = "";
+    while(currentLine != "+"){
+      counter ++;
+      facultyMems >> currentLine;
+      if(counter == 1){
+        tempN = currentLine;
+      }else if(counter == 2){
+        tempI = stoi(currentLine.c_str());;
+        facultyIDs.insertBack(tempI);
+      }else if(counter == 3){
+        tempL = currentLine;
+      }else if(counter == 4){
+        tempD = currentLine;
+      }else{
+        if(currentLine != "+"){
+        tempAdvisees.insertBack(stoi(currentLine.c_str()));
+        }
+      }
+    }
+    faculty f(tempI, tempN, tempL, tempD, tempAdvisees);
+    newFacMast.insert(f);
+    tempAdvisees = bl;
+  }
+
+  masterStudent = newStuMast;
+  masterFaculty = newFacMast;
+}
+
+
+
+
 void database::saveDB(){
-  masterStudent.outputTreeStudent("studentTable.txt");
-  masterFaculty.outputTreeFaculty("facultyTable.txt");
+  masterStudent.outputTreeStudent("studentTable.txt", studentIDs);
+  masterFaculty.outputTreeFaculty("facultyTable.txt", facultyIDs);
+}
+
+void database::updateFacInfo(int id, string newName, string newLevel, string newDepartment, DoublyLinkedList<int> newAdvisees){
+  faculty newFac(id, newName, newLevel, newDepartment, newAdvisees);
+  facultyIDs = facultyIDs.deleteFromList(id);
+  saveDB();
+  repopulate();
+  masterFaculty.insert(newFac);
+  facultyIDs.insertBack(id);
+}
+
+void database::updateStuInfo(int id, string newName, string newLevel, double newGPA, int newAdvisor, string newMaj){
+  student newStu(id, newName, newLevel, newGPA, newAdvisor, newMaj);
+  studentIDs = studentIDs.deleteFromList(id);
+  saveDB();
+  repopulate();
+  masterStudent.insert(newStu);
+  studentIDs.insertBack(id);
 }
 
 void database::debugDB(){
+  changeAdvisor();
   saveDB();
 }
 
@@ -177,7 +279,7 @@ void database::addFaculty(){
   while(studentIDs.contains(newID) || facultyIDs.contains(newID)){
     newID = rand() % 5000 + 1;
   }
-
+  facultyIDs.insertBack(newID);
   cout << "Enter the name of the Faculty(No Spaces):" << endl;
   cin >> newName;
   cout << "Enter the level of the faculty(No Spaces):" << endl;
@@ -191,19 +293,46 @@ void database::addFaculty(){
 
 
 void database::changeAdvisor(){
+  int stuID;
+  int newFacID;
+  cout << "Enter the Student's ID" << endl;
+  cin >> stuID;
+  while(!studentIDs.contains(stuID)){
+    cout << "Invalid Student ID, Try again:" << endl;
+    cin >> stuID;
+  }
+  cout << "Enter the ID of the new Advisor" << endl;
+  cin >> newFacID;
+  while(!facultyIDs.contains(newFacID)){
+    cout << "Invalid faculty ID, Try again:" << endl;
+    cin >> newFacID;
+  }
+  student s = masterStudent.find(stuID);
+  faculty oldAdvisor = masterFaculty.find(s.getAdvisor());
+  faculty newAdvisor = masterFaculty.find(newFacID);
+  updateStuInfo(stuID, s.getName(), s.getLevel(), s.getGPA(), newFacID, s.getMajor());
+  oldAdvisor.removeAdvisee(stuID);
+  newAdvisor.addAdvisee(stuID);
+  updateFacInfo(oldAdvisor.getId(), oldAdvisor.getName(), oldAdvisor.getLevel(), oldAdvisor.getDepartment(), oldAdvisor.getAdvisees());
+  updateFacInfo(newAdvisor.getId(), newAdvisor.getName(), newAdvisor.getLevel(), newAdvisor.getDepartment(), newAdvisor.getAdvisees());
+
+
 }
 
 
 //Delete a student by student id function
 void database::deleteStudent(int id){
-  student temp = masterStudent.find(id);
-  //masterStudent.deleteNode(id);
+  studentIDs = studentIDs.deleteFromList(id);
+  student s = masterStudent.find(id);
+  faculty f = masterFaculty.find(s.getAdvisor());
+  DoublyLinkedList<int> newAdvisees = f.getAdvisees();
+  newAdvisees = newAdvisees.deleteFromList(id);
+  updateFacInfo(f.getId(), f.getName(), f.getLevel(), f.getDepartment(), newAdvisees);
 }
 
 //Delete faculty by faculty id function
 void database::deleteFaculty(int id){
-  faculty temp = masterFaculty.find(id);
-  //masterFaculty.deleteNode(id);
+  facultyIDs = facultyIDs.deleteFromList(id);
 }
 
 //Remove advisee by student & faculty ids function

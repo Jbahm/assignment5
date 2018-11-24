@@ -4,6 +4,7 @@
 #include <iostream>
 #include <fstream>
 #include "TreeNode.h"
+#include "DoublyLinkedList.h"
 using namespace std;
 
 template <class T>
@@ -20,16 +21,16 @@ public:
   TreeNode<T>* getSuccessor(TreeNode<T> *d);
   bool isEmpty(); //tested and works
 
-  void outputTreeStudent(string filename);
-  void outputTreeFaculty(string filename);
+  void outputTreeStudent(string filename, DoublyLinkedList<int> ids);
+  void outputTreeFaculty(string filenam, DoublyLinkedList<int> ids);
   void facPrint();
   void stuPrint();
   void printTree(); //tested and works
   void recPrint(TreeNode<T> *node); //in order traversal
   void printStu(TreeNode<T> *node);
   void printFac(TreeNode<T> *node);
-  void studentOutput(TreeNode<T> *node, bool isFirst);
-  void facultyOutput(TreeNode<T> *node, bool isFirst);
+  void studentOutput(TreeNode<T> *node, bool isFirst, DoublyLinkedList<int> ids);
+  void facultyOutput(TreeNode<T> *node, bool isFirst, DoublyLinkedList<int> ids);
 
 private:
   TreeNode<T> *root;
@@ -71,22 +72,22 @@ void BST<T>::facPrint()
 
 
 template <class T>
-void BST<T>::outputTreeStudent(string filename)
+void BST<T>::outputTreeStudent(string filename, DoublyLinkedList<int> ids)
 {
   std::ofstream ofs;
   ofs.open(filename, std::ofstream::out | std::ofstream::trunc);
   ofs.close();
-  studentOutput(root, true);
+  studentOutput(root, true, ids);
 }
 
 
 template <class T>
-void BST<T>::outputTreeFaculty(string filename)
+void BST<T>::outputTreeFaculty(string filename, DoublyLinkedList<int> ids)
 {
   std::ofstream ofs;
   ofs.open(filename, std::ofstream::out | std::ofstream::trunc);
   ofs.close();
-  facultyOutput(root, true);
+  facultyOutput(root, true, ids);
 }
 
 
@@ -134,15 +135,14 @@ void BST<T>::printFac(TreeNode<T> *node)
 
 
 template <class T>
-void BST<T>::studentOutput(TreeNode<T> *node, bool isFirst)
+void BST<T>::studentOutput(TreeNode<T> *node, bool isFirst, DoublyLinkedList<int> ids)
 {
   if(node == NULL){
   return;
   }
-  studentOutput(node->left, false);
+  if(ids.contains(node->key.getId())){
   ofstream outfile;
   outfile.open("studentTable.txt", std::ios_base::app);
-  if(node->key.getId() != 2500){
   if(isFirst == true){
   outfile << node->key.getName() << "\r\n";
   }else{
@@ -157,19 +157,19 @@ void BST<T>::studentOutput(TreeNode<T> *node, bool isFirst)
   outfile << "+";
   outfile.close();
   }
-  studentOutput(node->right, false);
+  studentOutput(node->left, false, ids);
+  studentOutput(node->right, false, ids);
 }
 
 template <class T>
-void BST<T>::facultyOutput(TreeNode<T> *node, bool isFirst)
+void BST<T>::facultyOutput(TreeNode<T> *node, bool isFirst, DoublyLinkedList<int> ids)
 {
     if(node == NULL){
     return;
     }
-    facultyOutput(node->left, false);
+    if(ids.contains(node->key.getId())){
     ofstream outfile;
     outfile.open("facultyTable.txt", std::ios_base::app);
-    if(node->key.getId() != 2501){
     if(isFirst == true){
     outfile << node->key.getName() << "\r\n";
     }else{
@@ -187,7 +187,8 @@ void BST<T>::facultyOutput(TreeNode<T> *node, bool isFirst)
     outfile2 << "+";
     outfile2.close();
     }
-    facultyOutput(node->right, false);
+    facultyOutput(node->left, false, ids);
+    facultyOutput(node->right, false, ids);
 }
 
 

@@ -15,6 +15,10 @@ class database
 
     void debugDB();
     void saveDB();
+    void updateStuInfo(int id, string newName, string newLevel, double newGPA, int newAdvisor, string newMaj);
+    void updateFacInfo(int id, string newName, string newLevel, string newDepartment, DoublyLinkedList<int> newAdvisees);
+    void repopulate();
+
     void printMenu(); //print menu function
     void printAllStudent(); //Menu 1
     void printAllFaculty(); //Menu 2
@@ -29,6 +33,9 @@ class database
     void deleteFaculty(int id);//menu 10
     void removeAdvisee(int id);//menu 12
     void exit();//menu 14
+
+
+
 
 
     BST<student> masterStudent;

@@ -1,4 +1,10 @@
-
+Steve
+25
+Senior
+1.5
+Math
+1916
++
 Bob
 3
 Freshman
