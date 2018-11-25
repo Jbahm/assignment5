@@ -15,13 +15,12 @@ class student: public person{
     double gpa;
     int advisor;
 
-    string getName();
-    void printData();
-    string getLevel();
-    void printInfo();
-    double getGPA();
-    int getAdvisor();
-    string getMajor();
-    void setAdvisor(int newAdvisor);
+    string getName(); //get student name
+    string getLevel();//print student level
+    void printInfo(); //print student data
+    double getGPA(); //get student gpa
+    int getAdvisor(); //get student advisor
+    string getMajor();  //get student major
+    void setAdvisor(int newAdvisor); //set new advisor for student 
 
 };

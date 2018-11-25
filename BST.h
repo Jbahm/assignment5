@@ -50,18 +50,21 @@ BST<T>::~BST()
 
 }
 
+//prints the bst
 template <class T>
 void BST<T>::printTree()
 {
   recPrint(root);
 }
 
+//prints student bst
 template <class T>
 void BST<T>::stuPrint()
 {
   printStu(root);
 }
 
+//prints faculty bst
 template <class T>
 void BST<T>::facPrint()
 {
@@ -70,7 +73,7 @@ void BST<T>::facPrint()
 
 
 
-
+//outputs the student bst into the file
 template <class T>
 void BST<T>::outputTreeStudent(string filename, DoublyLinkedList<int> ids)
 {
@@ -80,7 +83,7 @@ void BST<T>::outputTreeStudent(string filename, DoublyLinkedList<int> ids)
   studentOutput(root, true, ids);
 }
 
-
+//outputs the faculty bst into the file
 template <class T>
 void BST<T>::outputTreeFaculty(string filename, DoublyLinkedList<int> ids)
 {
@@ -90,13 +93,14 @@ void BST<T>::outputTreeFaculty(string filename, DoublyLinkedList<int> ids)
   facultyOutput(root, true, ids);
 }
 
-
+//checks to see if bst is empty
 template <class T>
 bool BST<T>::isEmpty()
 {
   return root == NULL;
 }
 
+//prints
 template <class T>
 void BST<T>::recPrint(TreeNode<T> *node)
 {
@@ -108,7 +112,7 @@ void BST<T>::recPrint(TreeNode<T> *node)
   recPrint(node->right);
 }
 
-
+//prints student bst
 template <class T>
 void BST<T>::printStu(TreeNode<T> *node)
 {
@@ -120,6 +124,7 @@ void BST<T>::printStu(TreeNode<T> *node)
   printStu(node->right);
 }
 
+//prints faculty bst
 template <class T>
 void BST<T>::printFac(TreeNode<T> *node)
 {
@@ -196,7 +201,7 @@ void BST<T>::facultyOutput(TreeNode<T> *node, bool isFirst, DoublyLinkedList<int
 
 
 
-
+//insert into bst
 template <class T>
 void BST<T>::insert(T data)
 {
@@ -237,7 +242,7 @@ void BST<T>::insert(T data)
 
 }
 
-//STOPPED HERE
+
 
 
 
@@ -265,7 +270,7 @@ bool BST<T>::contains(T data)
   }
 
 
-
+//find in the bst
 template <class T>
 T BST<T>::find(int target)
   {
@@ -286,7 +291,7 @@ T BST<T>::find(int target)
       }
 
 
-
+//delete a node in the bst
 template <class T>
 bool BST<T>::deleteNode(T data)
 {
@@ -360,6 +365,7 @@ bool BST<T>::deleteNode(T data)
   return true;
 }
 
+//get the successor in the bst 
 template <class T>
 TreeNode<T>* BST<T>::getSuccessor(TreeNode<T> *d)
 {

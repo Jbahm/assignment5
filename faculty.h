@@ -15,12 +15,12 @@ class faculty{
     string department;
     DoublyLinkedList<int> advisees;
 
-    int getId();
-    void printData();
-    void addAdvisee(int id);
-    void removeAdvisee(int id);
-    string getName();
-    string getLevel();
-    string getDepartment();
-    DoublyLinkedList<int> getAdvisees();
+    int getId(); //get faculty id
+    void printData(); //print faculty data
+    void addAdvisee(int id);  //add a new advisee for the faculty
+    void removeAdvisee(int id); // remove a advisee from the faculty
+    string getName(); //get faculty name
+    string getLevel(); //get faculty level
+    string getDepartment(); //get faculty department
+    DoublyLinkedList<int> getAdvisees();  //faculty advisees in a list 
 };

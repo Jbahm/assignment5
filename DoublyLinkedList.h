@@ -2,8 +2,6 @@
 #define DoublyLinkedList_H
 
 
-
-
 #include <iostream>
 #include <fstream>
 #include "ListNode.h"
@@ -37,6 +35,7 @@ class DoublyLinkedList {
     unsigned int getSize();
 };
 
+//constructor
 template <class T>
 DoublyLinkedList<T>::DoublyLinkedList() {
   size = 0;
@@ -44,11 +43,13 @@ DoublyLinkedList<T>::DoublyLinkedList() {
   back = NULL;
 }
 
+//deconstructor
 template <class T>
 DoublyLinkedList<T>::~DoublyLinkedList() {
 
 }
 
+//insert from the back
 template <class T>
 void DoublyLinkedList<T>::insertBack(T data) {
   ListNode<T> *node = new ListNode<T>(data);
@@ -65,6 +66,7 @@ void DoublyLinkedList<T>::insertBack(T data) {
    ++size;
 }
 
+//removes from the front
 template <class T>
 T DoublyLinkedList<T>::removeFront() {
   if(!isEmpty()) {
@@ -89,11 +91,13 @@ T DoublyLinkedList<T>::removeFront() {
   }
 }
 
+//gets the front of the list 
 template <class T>
 ListNode<T>* DoublyLinkedList<T>::getFront() {
   return front;
 }
 
+//prints the list
 template <class T>
 void DoublyLinkedList<T>::printList() {
   ListNode<T> *curr = front;
@@ -103,6 +107,7 @@ void DoublyLinkedList<T>::printList() {
   }
 }
 
+//function to "find" in the list
 template <class T>
 bool DoublyLinkedList<T>::contains(T data){
   ListNode<T> *curr = front;
@@ -115,6 +120,7 @@ bool DoublyLinkedList<T>::contains(T data){
   return false;
 }
 
+//returns the position in the list
 template <class T>
 T DoublyLinkedList<T>::returnPos(int pos){
   ListNode<T> *curr = front;
@@ -128,7 +134,7 @@ T DoublyLinkedList<T>::returnPos(int pos){
 }
 
 
-
+//deletes from the list
 template <class T>
 DoublyLinkedList<T> DoublyLinkedList<T>::deleteFromList(T d){
   DoublyLinkedList<T> nList;
@@ -142,7 +148,7 @@ DoublyLinkedList<T> DoublyLinkedList<T>::deleteFromList(T d){
   return nList;
 }
 
-
+//outputs the list into a file
 template <class T>
 void DoublyLinkedList<T>::outputList(string filename) {
   ListNode<T> *curr = front;
@@ -155,9 +161,7 @@ void DoublyLinkedList<T>::outputList(string filename) {
   outfile.close();
 }
 
-
-
-
+//delete at a position
 template <class T>
 void DoublyLinkedList<T>::deletePos(int pos) {
   pos--;
@@ -181,11 +185,13 @@ void DoublyLinkedList<T>::deletePos(int pos) {
    delete curr;
 }
 
+//check to see if list is empty
 template <class T>
 bool DoublyLinkedList<T>::isEmpty() {
   return(size == 0);
 }
 
+//gets the size of the list
 template <class T>
 unsigned int DoublyLinkedList<T>::getSize() {
   return size;

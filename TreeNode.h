@@ -21,13 +21,14 @@ class TreeNode
 };
 
 
-
+//Constructor
 template<class T>
 TreeNode<T>::TreeNode(){
   left = NULL;
   right = NULL;
 }
 
+//constructor
 template<class T>
 TreeNode<T>::TreeNode(T d){
   key = d;
@@ -35,6 +36,7 @@ TreeNode<T>::TreeNode(T d){
   right = NULL;
 }
 
+//deconstructor
 template<class T>
 TreeNode<T>::~TreeNode(){
   //
