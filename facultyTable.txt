@@ -1,12 +1,11 @@
+rene
+887
+lectrer
+compsci
++
 Vajiac
 1916
 Lecturer
 Math
 25
-+
-Rene
-234
-Lecturer
-ComputerScience
-3
 +

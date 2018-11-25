@@ -21,23 +21,27 @@ faculty::faculty(int idNum, string n, string lev, string depart, DoublyLinkedLis
   advisees = a;
 }
 
-
+//get faculty name
 string faculty::getName(){
   return name;
 }
 
+//get faculty level (position)
 string faculty::getLevel(){
   return level;
 }
 
+//get faculty department
 string faculty::getDepartment(){
   return department;
 }
 
+//get faculty id
 int faculty::getId(){
   return id;
 }
 
+//get faculty advisees (students they teach)
 DoublyLinkedList<int> faculty::getAdvisees(){
   return advisees;
 }
@@ -51,76 +55,12 @@ void faculty::printData(){
   cout << "----------" << endl;
 }
 
+//faculty function to add advisees
 void faculty::addAdvisee(int id){
   advisees.insertBack(id);
 }
 
+//faculty function to remove advisees
 void faculty::removeAdvisee(int id){
   advisees = advisees.deleteFromList(id);
 }
-
-
-
-/*
-void faculty::addAdvisee(int id) {
-  if(numAdvisee != maxSize) {
-    int temp = 0;
-
-    for(int i = 0; i < maxSize; i++) {
-      if(adviseeArray[i] == id) {
-        temp = maxSize;
-      }
-    }
-
-    while(temp < maxSize) {
-      if(adviseeArray[temp] == -1) {
-        adviseeArray[temp] = id;
-        numAdvisee++;
-        break;
-      }
-
-      ++temp;
-    }
-  }
-  else {
-    if(numAdvisee == maxSize) {
-      int *tempArray = new int[numAdvisee];
-
-      for(int i = 0; i < numAdvisee; i++) {
-        tempArray[i] = adviseeArray[i];
-      }
-
-      adviseeArray = new int[numAdvisee + 1];
-      maxSize = numAdvisee + 1;
-
-      for(int i = 0; i < numAdvisee; ++i) {
-        adviseeArray[i] = tempArray[i];
-      }
-
-      for(int i = numAdvisee; i < numAdvisee + 1; i++) {
-        adviseeArray[i] = -1;
-      }
-
-      adviseeArray[numAdvisee++] = id;
-    }
-  }
-}
-
-bool faculty::removeAdvisee(int adviseeID) {
-  bool removed = false;
-
-  for(int i = 0; i < maxSize; i++) {
-    if(adviseeArray[i] == adviseeID) {
-      adviseeArray[i] = -1;
-      numAdvisee--;
-      removed = true;
-    }
-
-    if(!removed) {
-      cout << "The advisee was removed" << endl;
-    }
-
-    return removed;
-  }
-}
-*/

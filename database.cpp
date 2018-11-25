@@ -50,7 +50,6 @@ database::database(){
   students.close();
 
   //populates the faculty table
-
   ifstream facultyMems;
   facultyMems.open("facultyTable.txt");
   string tempN;
@@ -86,6 +85,7 @@ database::database(){
   }
 }
 
+//repopulate the tables
 void database::repopulate(){
   string currentLine = "";
   BST<student> newStuMast;
@@ -130,7 +130,6 @@ void database::repopulate(){
   students.close();
 
   //populates the faculty table
-
   ifstream facultyMems;
   facultyMems.open("facultyTable.txt");
   BST<faculty> newFacMast;
@@ -172,12 +171,13 @@ void database::repopulate(){
 
 
 
-
+//save database to textfiles
 void database::saveDB(){
   masterStudent.outputTreeStudent("studentTable.txt", studentIDs);
   masterFaculty.outputTreeFaculty("facultyTable.txt", facultyIDs);
 }
 
+//function to update faculty info
 void database::updateFacInfo(int id, string newName, string newLevel, string newDepartment, DoublyLinkedList<int> newAdvisees){
   faculty newFac(id, newName, newLevel, newDepartment, newAdvisees);
   facultyIDs = facultyIDs.deleteFromList(id);
@@ -187,6 +187,7 @@ void database::updateFacInfo(int id, string newName, string newLevel, string new
   facultyIDs.insertBack(id);
 }
 
+//function to update student info
 void database::updateStuInfo(int id, string newName, string newLevel, double newGPA, int newAdvisor, string newMaj){
   student newStu(id, newName, newLevel, newGPA, newAdvisor, newMaj);
   studentIDs = studentIDs.deleteFromList(id);
@@ -196,11 +197,6 @@ void database::updateStuInfo(int id, string newName, string newLevel, double new
   studentIDs.insertBack(id);
 }
 
-void database::debugDB(){
-  printMenu();
-  //changeAdvisor();
-  saveDB();
-}
 
 //Print all student info by ascending id function
 void database::printAllStudent(){
@@ -269,7 +265,7 @@ void database::addStudent(){
   temp.addAdvisee(newID);
   updateFacInfo(temp.getId(), temp.getName(), temp.getLevel(), temp.getDepartment(), temp.getAdvisees());
   masterStudent.insert(s);
-  cout<<"*Student Added"<<endl;
+  cout<<"*Student Added*"<<endl;
 }
 
 //Add a new faculty function
@@ -291,10 +287,10 @@ void database::addFaculty(){
   cin >> newDepartment;
   faculty f(newID, newName, newLevel, newDepartment, adviseeList);
   masterFaculty.insert(f);
-  cout<<"*Faculty Added"<<endl;
+  cout<<"*Faculty Added*"<<endl;
 }
 
-
+//change advisor function
 void database::changeAdvisor(){
   int stuID;
   int newFacID;
@@ -337,16 +333,62 @@ void database::deleteStudent(int id){
 //Delete faculty by faculty id function
 void database::deleteFaculty(int id){
   facultyIDs = facultyIDs.deleteFromList(id);
+  faculty f= masterFaculty.find(id);
+  DoublyLinkedList<int> advisees = f.getAdvisees();
+  ListNode<int> *curr = advisees.getFront();
+  while(curr != NULL){
+    //printStudent(curr->data);
+    curr = curr->next;
+  }
+  cout<<"*Faculty Deleted*"<<endl;
+
+
+
+
+  //student s = masterStudent.find(id);
+//  int advisor = s.getAdvisor();
+//  advisor=advisor.deleteFromList(id);
+
+
+//  faculty oldAdvisor = masterFaculty.find(s.getAdvisor());
+
+  //studentIDs = studentIDs.contains(newAdvisees);
+
+  //masterStudent.find(f.)
+
+  //newAdvisor=newAdvisor.deleteNode(id);
+  //updateStuInfo(s.getId(), s.getName(), s.getLevel(), s.getGPA(),s.getMajor(), advisor);
+
 }
 
-//Remove advisee by student & faculty ids function
+//Remove advisee by student & faculty ids function (removing the stdent from the facultys list of students)
 void database::removeAdvisee(int id){
-  student temp = masterStudent.find(id);
+  int stuID;
+  int facID;
+  cout << "Enter the ID of the Advisor" << endl;
+  cin >> facID;
+  while(!facultyIDs.contains(facID)){
+    cout << "Invalid faculty ID, Try again:" << endl;
+    cin >> facID;
+  }
+  cout << "Enter the Student's ID" << endl;
+  cin >> stuID;
+  while(!studentIDs.contains(stuID)){
+    cout << "Invalid Student ID, Try again:" << endl;
+    cin >> stuID;
+  }
+  student s = masterStudent.find(stuID);
+  faculty f = masterFaculty.find(s.getAdvisor());
+  DoublyLinkedList<int> newAdvisees = f.getAdvisees();
+  newAdvisees = newAdvisees.deleteFromList(id);
+  updateFacInfo(f.getId(), f.getName(), f.getLevel(), f.getDepartment(), newAdvisees);
+
+  cout<<"*Advisee Removed*"<<endl;
 }
 
 //exit function
 void database::exit(){
-  cout<<"Exiting the program."<<endl;
+  cout<<"Exiting the program..."<<endl;
 }
 
 //print the main menu function
@@ -372,7 +414,7 @@ void database::printMenu(){
     cout << 12 << ". Remove advisee by student & faculty ids" << endl;
     cout << 13 << ". Rollback" << endl;
     cout << 14 << ". Exit" << endl;
-    cout<<"********************************"<<endl;
+    cout<<"*****************************************************"<<endl;
 
     cin >> menuinput;
     numinput = stoi(menuinput.c_str());
@@ -406,25 +448,31 @@ void database::printMenu(){
         break;
       case 7:
         addStudent();
+        saveDB();
         break;
       case 8:
         cout<<"Enter the student id..."<<endl;
         cin>>id;
         deleteStudent(id);
+        saveDB();
         break;
       case 9:
         addFaculty();
+        saveDB();
         break;
       case 10:
         cout<<"Enter the faculty id..."<<endl;
         cin>>id;
         deleteFaculty(id);
+        saveDB();
         break;
       case 11:
         changeAdvisor();
+        saveDB();
         break;
       case 12:
         removeAdvisee(id);
+        saveDB();
         break;
       case 13:
         //rollback();
@@ -437,6 +485,9 @@ void database::printMenu(){
         continue;
     }
   }
+}
+void database::debugDB(){
+  printMenu();
 }
 
 database::~database(){

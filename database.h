@@ -14,10 +14,10 @@ class database
     ~database();
 
     void debugDB();
-    void saveDB();
-    void updateStuInfo(int id, string newName, string newLevel, double newGPA, int newAdvisor, string newMaj);
-    void updateFacInfo(int id, string newName, string newLevel, string newDepartment, DoublyLinkedList<int> newAdvisees);
-    void repopulate();
+    void saveDB(); //saves the database
+    void updateStuInfo(int id, string newName, string newLevel, double newGPA, int newAdvisor, string newMaj);  //updates the student info
+    void updateFacInfo(int id, string newName, string newLevel, string newDepartment, DoublyLinkedList<int> newAdvisees); //updates the faculty info
+    void repopulate(); //repopulates the tables of both student and faculty 
 
     void printMenu(); //print menu function
     void printAllStudent(); //Menu 1
@@ -35,12 +35,9 @@ class database
     void exit();//menu 14
 
 
-
-
-
-    BST<student> masterStudent;
-    DoublyLinkedList<int> studentIDs;
-    DoublyLinkedList<int> facultyIDs;
-    BST<faculty> masterFaculty;
+    BST<student> masterStudent; //bst for students
+    DoublyLinkedList<int> studentIDs; //doubly linked list for students
+    DoublyLinkedList<int> facultyIDs; //doubly linked list for faculty
+    BST<faculty> masterFaculty; //bst for faculty
 
 };

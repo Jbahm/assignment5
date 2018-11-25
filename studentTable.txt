@@ -5,10 +5,10 @@ Senior
 Math
 1916
 +
-Bob
-3
-Freshman
-2.4
-Biology
-234
+ally
+2778
+fresh
+3.4
+econ
+4384
 +
