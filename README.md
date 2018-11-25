@@ -1,5 +1,5 @@
 ## Assignment 5
-$$Jonathan Bahm    bahm@chapman.edu $$
+Jonathan Bahm    bahm@chapman.edu 
 Raha Pirzadeh    pirzadeh@chapman.edu
 
 References: 
