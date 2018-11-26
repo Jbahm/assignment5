@@ -12,11 +12,17 @@ How was your Thanksgiving break?
 
 Students are stored in text as the following:
 Steve <- Name
+
 2778 <- ID Number
+
 Senior <- Level
+
 2.5 <- GPA
+
 CompSci <- Major
+
 1916 <- Advisor
+
 + <- indicates end of a student declariation
 
 Faculty are store in text as the following:
