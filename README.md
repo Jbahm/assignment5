@@ -11,6 +11,7 @@ How was your Thanksgiving break?
 
 
 Students are stored in text as the following:
+
 Steve <- Name
 
 2778 <- ID Number
@@ -23,16 +24,23 @@ CompSci <- Major
 
 1916 <- Advisor
 
-+ <- indicates end of a student declariation
+(+) <- indicates end of a student declariation
 
 Faculty are store in text as the following:
+
 Rene <-Name
+
 1234 <-ID Number
+
 Lecturer <-Level
+
 CompSci <-Department
+
 2778 <-Advisee(There can be as many of these as needed)
+
 887 <-Advisee
-+ <-indicates end of a faculty declaration
+
+(+) <-indicates end of a faculty declaration
 
 Please dont do the following or it will break:
 * At least one faculty member has to be added before a student is Added
