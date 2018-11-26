@@ -389,7 +389,7 @@ void database::removeAdvisee(){
   student s = masterStudent.find(stuID);
   faculty f = masterFaculty.find(s.getAdvisor());
   DoublyLinkedList<int> newAdvisees = f.getAdvisees();
-  newAdvisees = newAdvisees.deleteFromList(facID);
+  newAdvisees = newAdvisees.deleteFromList(stuID);
   cout<<"*Advisee Removed*"<<endl;
 }
 
