@@ -17,7 +17,7 @@ class database
     void saveDB(); //saves the database
     void updateStuInfo(int id, string newName, string newLevel, double newGPA, int newAdvisor, string newMaj);  //updates the student info
     void updateFacInfo(int id, string newName, string newLevel, string newDepartment, DoublyLinkedList<int> newAdvisees); //updates the faculty info
-    void repopulate(); //repopulates the tables of both student and faculty 
+    void repopulate(); //repopulates the tables of both student and faculty
 
     void printMenu(); //print menu function
     void printAllStudent(); //Menu 1
@@ -31,7 +31,8 @@ class database
     void addFaculty();//Menu 9
     void deleteFaculty(int id);//menu 10
     void changeAdvisor();//Menu 11
-    void removeAdvisee(int id);//menu 12
+    void removeAdvisee();//menu 12
+    void rollback();//menu 13
     void exit();//menu 14
 
 

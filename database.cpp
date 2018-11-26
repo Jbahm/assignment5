@@ -279,7 +279,6 @@ void database::addStudent(){
   cin >> newGPA;
   student s(newID, newName, newLevel, newGPA, newAdvisor, newMajor);
   faculty temp = masterFaculty.find(newAdvisor);
-  temp.printData();
   DoublyLinkedList<int> nA = temp.getAdvisees();
   nA.insertBack(newID);
   updateFacInfo(newAdvisor, temp.getName(), temp.getLevel(), temp.getDepartment(), nA);
@@ -372,7 +371,7 @@ void database::deleteFaculty(int id){
 }
 
 //Remove advisee by student & faculty ids function (removing the stdent from the facultys list of students)
-void database::removeAdvisee(int id){
+void database::removeAdvisee(){
   int stuID;
   int facID;
   cout << "Enter the ID of the Advisor" << endl;
@@ -390,15 +389,19 @@ void database::removeAdvisee(int id){
   student s = masterStudent.find(stuID);
   faculty f = masterFaculty.find(s.getAdvisor());
   DoublyLinkedList<int> newAdvisees = f.getAdvisees();
-  newAdvisees = newAdvisees.deleteFromList(id);
+  newAdvisees = newAdvisees.deleteFromList(facID);
   cout<<"*Advisee Removed*"<<endl;
+}
+
+//rollback function
+void database::rollback(){
+
 }
 
 //exit function
 void database::exit(){
   cout<<"Exiting the program."<<endl;
   saveDB();
-  cout<<"Exiting the program..."<<endl;
 }
 
 //print the main menu function
@@ -437,23 +440,39 @@ void database::printMenu(){
         printAllFaculty();
         break;
       case 3:
-        cout<<"Enter the student id..."<<endl;
-        cin>>id;
+        cout << "Enter the Student's ID" << endl;
+        cin >> id;
+        while(!studentIDs.contains(id)){
+          cout << "Invalid Student ID, Try again:" << endl;
+          cin >> id;
+        }
         printStudent(id);
         break;
       case 4:
-        cout<<"Enter the faculty id..."<<endl;
-        cin>>id;
+        cout << "Enter the ID of the Faculty" << endl;
+        cin >> id;
+        while(!facultyIDs.contains(id)){
+          cout << "Invalid faculty ID, Try again:" << endl;
+          cin >> id;
+        }
         printFaculty(id);
         break;
       case 5:
-        cout<<"Enter the student id..."<<endl;
-        cin>>id;
+        cout << "Enter the Student's ID" << endl;
+        cin >> id;
+        while(!studentIDs.contains(id)){
+          cout << "Invalid Student ID, Try again:" << endl;
+          cin >> id;
+        }
         printAdvisor(id);
         break;
       case 6:
-        cout<<"Enter the faculty id..."<<endl;
-        cin>>id;
+        cout << "Enter the ID of the Faculty" << endl;
+        cin >> id;
+        while(!facultyIDs.contains(id)){
+          cout << "Invalid faculty ID, Try again:" << endl;
+          cin >> id;
+        }
         printAdvisees(id);
         break;
       case 7:
@@ -461,8 +480,12 @@ void database::printMenu(){
         saveDB();
         break;
       case 8:
-        cout<<"Enter the student id..."<<endl;
-        cin>>id;
+        cout << "Enter the Student's ID" << endl;
+        cin >> id;
+        while(!studentIDs.contains(id)){
+          cout << "Invalid Student ID, Try again:" << endl;
+          cin >> id;
+        }
         deleteStudent(id);
         saveDB();
         break;
@@ -471,8 +494,12 @@ void database::printMenu(){
         saveDB();
         break;
       case 10:
-        cout<<"Enter the faculty id..."<<endl;
-        cin>>id;
+        cout << "Enter the ID of the Faculty" << endl;
+        cin >> id;
+        while(!facultyIDs.contains(id)){
+          cout << "Invalid faculty ID, Try again:" << endl;
+          cin >> id;
+        }
         deleteFaculty(id);
         saveDB();
         break;
@@ -481,11 +508,11 @@ void database::printMenu(){
         saveDB();
         break;
       case 12:
-        removeAdvisee(id);
+        removeAdvisee();
         saveDB();
         break;
       case 13:
-        //rollback();
+        rollback();
         break;
       case 14:
         exit();
