@@ -10,7 +10,7 @@ Rollback does not exist...
 How was your Thanksgiving break?
 
 
-##Students are stored in text as the following:
+## Students are stored in text as the following:
 
 Steve <- Name
 
@@ -26,7 +26,7 @@ CompSci <- Major
 
 (+) <- indicates end of a student declariation
 
-##Faculty are store in text as the following:
+## Faculty are store in text as the following:
 
 Rene <-Name
 
@@ -42,7 +42,7 @@ CompSci <-Department
 
 (+) <-indicates end of a faculty declaration
 
-###Please dont do the following or it will break:
+### Please dont do the following or it will break:
 * At least one faculty member has to be added before a student is Added
 * Have less than 3 faculty entered when trying to delete a faculty member
 * Have an extra blank line at the end of the studentTable or  facultyTable text files
